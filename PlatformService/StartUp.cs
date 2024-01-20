@@ -19,8 +19,18 @@ namespace PlatformService
 
         public void ConfigureServices(IServiceCollection services)
         {
-             services.AddDbContext<AppDbContext>(opt =>
+            if(_env.IsProduction())
+            {
+                Console.WriteLine("--> SQL DB");
+                services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseSqlServer(Configuration.GetConnectionString("PlatformConnection")));
+            }
+            else
+            {
+                Console.WriteLine("--> In Memory DB");
+                services.AddDbContext<AppDbContext>(opt =>
                      opt.UseInMemoryDatabase("InMem"));
+            }
 
             services.AddScoped<IPlatformRepo, PlatformRepo>();
 
@@ -63,7 +73,7 @@ namespace PlatformService
             });
 
 
-            PrepDb.PrepPopulation(app);
+            PrepDb.PrepPopulation(app, env.IsProduction());
 
         }
     }
