@@ -1,3 +1,5 @@
+using CommandService.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace CommandService
@@ -16,6 +18,8 @@ namespace CommandService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemoryCommandService"));
+            services.AddScoped<ICommandRepo, CommandRepo>();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
