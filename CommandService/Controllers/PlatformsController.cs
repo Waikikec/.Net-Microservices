@@ -31,7 +31,7 @@ namespace CommandService.Controllers
         [HttpPost]
         public ActionResult TestInboundConnection()
         {
-            Console.WriteLine("--> Inbound POST #CS");
+            Console.WriteLine("--> Inbound POST CommandService");
 
             return Ok("Inbound test of from PLatforms Controller");
         }
