@@ -25,7 +25,7 @@ namespace EventProcessing.EventProcessing
             switch (eventType)
             {
                 case EventType.PlatformPublished:
-                    //TODO
+                    AddPlatform(message);
                     break;
                 default:
                     break;
@@ -66,10 +66,11 @@ namespace EventProcessing.EventProcessing
                     {
                         repo.CreatePlatform(platform);
                         repo.SaveChanges();
+                        Console.WriteLine("--> Platform added!");
                     }
                     else
                     {
-                        Console.WriteLine("Platform already exists!");
+                        Console.WriteLine("--> Platform already exists!");
                     }
                 }
                 catch (Exception ex)
